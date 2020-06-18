@@ -131,3 +131,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 4308379181486546773}
+  simulationManager: {fileID: 6179011633461308234, guid: 8896fd070312c4c279313cd14aa8ca39,
+    type: 3}
