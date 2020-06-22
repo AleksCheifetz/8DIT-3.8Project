@@ -21,12 +21,6 @@ public class AgentController : MonoBehaviour
         destination.x -= manager.sizeOfBuilding;
     }
 
-    public void ReturnToSpawn(Transform sp)
-    {
-        Debug.Log("Reset");
-        agent.Warp(sp.position);
-    }
-
     public void Navigate(Vector3 dest)
     {
         agent.SetDestination(dest);

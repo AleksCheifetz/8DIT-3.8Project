@@ -21,11 +21,6 @@ public class SimulationManager : MonoBehaviour
         SpawnAgents();
     }
 
-    void Update()
-    {
-        numOfAgents = slider.value;
-    }
-
     public void Simulate()
     {
         agents.RemoveAll(i => i == null);
@@ -43,13 +38,12 @@ public class SimulationManager : MonoBehaviour
             Destroy(agent);
         }
 
+        numOfAgents = slider.value;
         SpawnAgents();
     }
 
     void SpawnAgents()
     {
-        Debug.Log(agents.Count);
-
         float limit = Mathf.Ceil(Mathf.Sqrt(numOfAgents));
         float interval = sizeOfBuilding / limit;
         int counter = 0;
@@ -70,6 +64,5 @@ public class SimulationManager : MonoBehaviour
                 }
             }
         }
-        Debug.Log(agents.Count);
     }
 }
