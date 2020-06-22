@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4308379181486546858}
   - component: {fileID: 4308379181486546859}
   - component: {fileID: 4308379181486546772}
-  - component: {fileID: 4308379181486546773}
   - component: {fileID: 4308379181486546856}
+  - component: {fileID: -1853394492236245603}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4308379181486546774}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.5, y: 1, z: -10.65}
+  m_LocalPosition: {x: -100, y: 1.0833334, z: -49.833332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -96,7 +96,24 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!195 &4308379181486546773
+--- !u!114 &4308379181486546856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4308379181486546774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d8b57681efeb495392170d4529202db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: -1853394492236245603}
+  simulationManager: {fileID: 6179011633461308234, guid: 8896fd070312c4c279313cd14aa8ca39,
+    type: 3}
+  spawnPoint: {fileID: 0}
+  destination: {x: 0, y: 0, z: 0}
+--- !u!195 &-1853394492236245603
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,18 +135,3 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4308379181486546856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4308379181486546774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d8b57681efeb495392170d4529202db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 4308379181486546773}
-  simulationManager: {fileID: 6179011633461308234, guid: 8896fd070312c4c279313cd14aa8ca39,
-    type: 3}

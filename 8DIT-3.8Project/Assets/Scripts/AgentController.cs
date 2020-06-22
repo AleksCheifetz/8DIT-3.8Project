@@ -6,17 +6,29 @@ using UnityEngine.AI;
 public class AgentController : MonoBehaviour
 {
     public NavMeshAgent agent;
+
     public SimulationManager simulationManager;
 
-    // Start is called before the first frame update
+    public Transform spawnPoint;
+    public Vector3 destination;
+
     void Start()
     {
         SimulationManager manager = simulationManager.GetComponent<SimulationManager>();
 
-        Transform start = agent.GetComponent<Transform>();
-        Vector3 end = start.position;
-        end.x -= manager.sizeOfBuilding;
+        spawnPoint = agent.GetComponent<Transform>();
+        destination = spawnPoint.position;
+        destination.x -= manager.sizeOfBuilding;
+    }
 
-        agent.SetDestination(end);
+    public void ReturnToSpawn(Transform sp)
+    {
+        Debug.Log("Reset");
+        agent.Warp(sp.position);
+    }
+
+    public void Navigate(Vector3 dest)
+    {
+        agent.SetDestination(dest);
     }
 }
