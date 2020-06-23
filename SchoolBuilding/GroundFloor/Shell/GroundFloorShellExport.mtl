@@ -1,7 +1,7 @@
-# Blender MTL File: 'GroundFloorBlender.blend'
+# Blender MTL File: 'None'
 # Material Count: 2
 
-newmtl material
+newmtl material.001
 Ns 225.000000
 Ka 1.000000 1.000000 1.000000
 Kd 1.000000 1.000000 1.000000
