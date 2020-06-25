@@ -18,7 +18,7 @@ public class AgentController : MonoBehaviour
 
         spawnPoint = agent.GetComponent<Transform>();
         destination = spawnPoint.position;
-        destination.x -= manager.sizeOfBuilding;
+        destination.x -= 100;
     }
 
     public void Navigate(Vector3 dest)

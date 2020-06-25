@@ -7,10 +7,10 @@ public class SimulationManager : MonoBehaviour
 {
     public GameObject agentPrefab;
 
+    public Transform spawnBoundary;
+
     public Slider slider;
     static float numOfAgents;
-
-    public int sizeOfBuilding = 50;
 
     List<GameObject> agents = new List<GameObject>();
 
@@ -44,6 +44,17 @@ public class SimulationManager : MonoBehaviour
 
     void SpawnAgents()
     {
+        for (int i = 0; i < numOfAgents; i++)
+        {
+            float x = -Random.Range(0, spawnBoundary.transform.localScale.x);
+            float z = -Random.Range(0, spawnBoundary.transform.localScale.z);
+
+            GameObject agent = Instantiate(agentPrefab, new Vector3(x, 1, z), Quaternion.identity);
+            agents.Add(agent);
+
+        }
+
+        /*
         float limit = Mathf.Ceil(Mathf.Sqrt(numOfAgents));
         float interval = sizeOfBuilding / limit;
         int counter = 0;
@@ -64,5 +75,6 @@ public class SimulationManager : MonoBehaviour
                 }
             }
         }
+        */
     }
 }
