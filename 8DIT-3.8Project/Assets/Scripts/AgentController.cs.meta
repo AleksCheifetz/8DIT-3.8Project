@@ -3,7 +3,10 @@ guid: 9d8b57681efeb495392170d4529202db
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - agent: {instanceID: 0}
+  - simulationManager: {instanceID: 0}
+  - evacuationBoundary: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

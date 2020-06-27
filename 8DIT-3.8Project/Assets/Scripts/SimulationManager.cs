@@ -7,7 +7,7 @@ public class SimulationManager : MonoBehaviour
 {
     public GameObject agentPrefab;
 
-    public Transform spawnBoundary;
+    public Transform spawningBoundary;
 
     public Slider slider;
     static float numOfAgents;
@@ -46,10 +46,14 @@ public class SimulationManager : MonoBehaviour
     {
         for (int i = 0; i < numOfAgents; i++)
         {
-            float x = -Random.Range(0, spawnBoundary.transform.localScale.x);
-            float z = -Random.Range(0, spawnBoundary.transform.localScale.z);
+            float x = -Random.Range(0, spawningBoundary.transform.localScale.x);
+            float z = -Random.Range(0, spawningBoundary.transform.localScale.z);
 
             GameObject agent = Instantiate(agentPrefab, new Vector3(x, 1, z), Quaternion.identity);
+
+            Vector3 dest = agent.GetComponent<AgentController>().FindDestination(i);
+            agent.GetComponent<AgentController>().destination = dest;
+
             agents.Add(agent);
 
         }
