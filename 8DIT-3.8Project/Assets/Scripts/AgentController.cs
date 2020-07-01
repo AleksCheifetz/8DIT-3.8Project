@@ -7,23 +7,35 @@ public class AgentController : MonoBehaviour
 {
     public NavMeshAgent agent;
 
+    float femaleHeight = 0.825f;
+    float femaleWidth = 0.4f;
+
     float heightRange = 0.165f;
     float widthRange = 0.04f;
     float speedRange = 0.128f;
 
-    public SimulationManager simulationManager;
-    public Transform evacuationBoundary;
+    static GameObject evacuationBoundary;
     public Vector3 destination;
+
+    void Awake()
+    {
+        evacuationBoundary = GameObject.Find("EvacuationBoundary");
+    }
 
     void Start()
     {
-        SimulationManager manager = simulationManager.GetComponent<SimulationManager>();
-
         float heightOffset = Random.Range(-heightRange, heightRange);
         float widthOffset = Random.Range(-widthRange, widthRange);
         float speedOffset = Random.Range(-speedRange, speedRange);
 
         Vector3 scaleOffset = new Vector3(widthOffset, heightOffset, widthOffset);
+
+        bool isFemale = (Random.value > 0.5f);
+
+        if (isFemale)
+        {
+            agent.transform.localScale = new Vector3(femaleWidth, femaleHeight, femaleWidth);
+        }
 
         agent.transform.localScale += scaleOffset;
         agent.GetComponent<NavMeshAgent>().speed += speedOffset;

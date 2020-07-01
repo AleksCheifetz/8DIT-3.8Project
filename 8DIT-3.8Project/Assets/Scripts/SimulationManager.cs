@@ -14,11 +14,15 @@ public class SimulationManager : MonoBehaviour
 
     List<GameObject> agents = new List<GameObject>();
 
-    // Start is called before the first frame update
     void Start()
     {
         numOfAgents = slider.value;
         SpawnAgents();
+    }
+
+    public void TimeScaleChange(Slider timeScaleSlider)
+    {
+        Time.timeScale = timeScaleSlider.value;
     }
 
     public void Simulate()
@@ -55,30 +59,6 @@ public class SimulationManager : MonoBehaviour
             agent.GetComponent<AgentController>().destination = dest;
 
             agents.Add(agent);
-
         }
-
-        /*
-        float limit = Mathf.Ceil(Mathf.Sqrt(numOfAgents));
-        float interval = sizeOfBuilding / limit;
-        int counter = 0;
-
-        for (int r = 0; r < limit; r++)
-        {
-            for (int c = 0; c < limit; c++)
-            {
-                if (counter < numOfAgents)
-                {
-                    float x = -((interval * r) + (interval / 2));
-                    float z = -((interval * c) + (interval / 2));
-
-                    GameObject agent = Instantiate(agentPrefab, new Vector3(x, 1, z), new Quaternion(0, 0, 0, 0));
-                    agents.Add(agent);
-
-                    counter++;
-                }
-            }
-        }
-        */
     }
 }
