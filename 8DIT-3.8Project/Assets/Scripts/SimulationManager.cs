@@ -52,8 +52,17 @@ public class SimulationManager : MonoBehaviour
         {
             float x = -Random.Range(0, spawningBoundary.transform.localScale.x);
             float z = -Random.Range(0, spawningBoundary.transform.localScale.z);
+            float y;
+            if (Random.value > 0.5f)
+            {
+                y = 0f;
+            }
+            else
+            {
+                y = 3.71f;
+            }
 
-            GameObject agent = Instantiate(agentPrefab, new Vector3(x, 1, z), Quaternion.identity);
+            GameObject agent = Instantiate(agentPrefab, new Vector3(x, y, z), Quaternion.identity);
 
             Vector3 dest = agent.GetComponent<AgentController>().FindDestination(i);
             agent.GetComponent<AgentController>().destination = dest;
