@@ -15,11 +15,15 @@ public class AgentController : MonoBehaviour
     float speedRange = 0.128f;
 
     static GameObject evacuationBoundary;
+    static float startingPointX;
+    static float startingPointZ;
     public Vector3 destination;
 
     void Awake()
     {
         evacuationBoundary = GameObject.Find("EvacuationBoundary");
+        startingPointX = evacuationBoundary.transform.GetChild(0).gameObject.transform.position.x;
+        startingPointZ = evacuationBoundary.transform.GetChild(0).gameObject.transform.position.z;
     }
 
     void Start()
@@ -43,13 +47,29 @@ public class AgentController : MonoBehaviour
 
     public Vector3 FindDestination(int agentIndex)
     {
-        float zBoundary = evacuationBoundary.transform.localScale.z;
-        float xBoundary = evacuationBoundary.transform.localScale.x;
+        float zScale = evacuationBoundary.transform.localScale.z;
+        float xScale = evacuationBoundary.transform.localScale.x;
 
+        float rotationAngle = Mathf.Round(evacuationBoundary.transform.eulerAngles.y);
+        // Debug.Log(rotationAngle);
+
+        float xOffsetAgent = (agentIndex % zScale) * (Mathf.Sin(rotationAngle * Mathf.PI / 180));
+        float zOffsetAgent = (agentIndex % zScale) * (Mathf.Cos(rotationAngle * Mathf.PI / 180));
+
+        float xOffsetSpawn = (agentIndex / zScale) * (Mathf.Cos(rotationAngle * Mathf.PI / 180));
+        float zOffsetSpawn = (agentIndex / zScale) * (Mathf.Sin(rotationAngle * Mathf.PI / 180));
+
+        startingPointX -= xOffsetSpawn;
+        startingPointZ += zOffsetSpawn;
+
+        return new Vector3(startingPointX - xOffsetAgent, 1, startingPointZ - zOffsetAgent);
+
+        /*
         float zPosition = evacuationBoundary.transform.position.z + (zBoundary / 2);
         float xPosition = evacuationBoundary.transform.position.x + (xBoundary / 2);
 
         return new Vector3(xPosition - (agentIndex / (int)zBoundary), 1, zPosition - (agentIndex % zBoundary));
+        */
     }
 
     public void Navigate(Vector3 dest)
