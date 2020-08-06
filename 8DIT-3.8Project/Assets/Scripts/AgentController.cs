@@ -48,10 +48,8 @@ public class AgentController : MonoBehaviour
     public Vector3 FindDestination(int agentIndex)
     {
         float zScale = evacuationBoundary.transform.localScale.z;
-        float xScale = evacuationBoundary.transform.localScale.x;
 
         float rotationAngle = Mathf.Round(evacuationBoundary.transform.eulerAngles.y);
-        // Debug.Log(rotationAngle);
 
         float xOffsetAgent = (agentIndex % zScale) * (Mathf.Sin(rotationAngle * Mathf.PI / 180));
         float zOffsetAgent = (agentIndex % zScale) * (Mathf.Cos(rotationAngle * Mathf.PI / 180));
@@ -63,13 +61,6 @@ public class AgentController : MonoBehaviour
         startingPointZ += zOffsetSpawn;
 
         return new Vector3(startingPointX - xOffsetAgent, 1, startingPointZ - zOffsetAgent);
-
-        /*
-        float zPosition = evacuationBoundary.transform.position.z + (zBoundary / 2);
-        float xPosition = evacuationBoundary.transform.position.x + (xBoundary / 2);
-
-        return new Vector3(xPosition - (agentIndex / (int)zBoundary), 1, zPosition - (agentIndex % zBoundary));
-        */
     }
 
     public void Navigate(Vector3 dest)
