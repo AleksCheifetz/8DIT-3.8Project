@@ -6,10 +6,10 @@ public class CameraController : MonoBehaviour
 {
     public Rigidbody rb;
 
-    public float forwardForce = 20;
+    public float force = 30f;
 
-    public float speedH = 5.0f;
-    public float speedV = 5.0f;
+    public float speedH = 3.0f;
+    public float speedV = 3.0f;
 
     private float yaw = -90.0f;
     private float pitch = 0.0f;
@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             paused = !paused;
         }
@@ -32,27 +32,33 @@ public class CameraController : MonoBehaviour
             Cursor.visible = false;
             if (Input.GetKey(KeyCode.W))
             {
-                rb.AddRelativeForce(Vector3.forward * forwardForce);
+                Vector3 forward = transform.forward;
+                forward.y = 0f;
+
+                rb.AddForce(forward * force);
             }
             if (Input.GetKey(KeyCode.A))
             {
-                rb.AddRelativeForce(Vector3.left * forwardForce);
+                rb.AddRelativeForce(Vector3.left * force);
             }
             if (Input.GetKey(KeyCode.S))
             {
-                rb.AddRelativeForce(Vector3.back * forwardForce);
+                Vector3 back = -transform.forward;
+                back.y = 0f;
+
+                rb.AddForce(back * force);
             }
             if (Input.GetKey(KeyCode.D))
             {
-                rb.AddRelativeForce(Vector3.right * forwardForce);
+                rb.AddRelativeForce(Vector3.right * force);
             }
             if (Input.GetKey(KeyCode.Space))
             {
-                rb.AddRelativeForce(Vector3.up * forwardForce);
+                rb.AddForce(Vector3.up * force);
             }
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                rb.AddRelativeForce(Vector3.down * forwardForce);
+                rb.AddForce(Vector3.down * force);
             }
 
             yaw += speedH * Input.GetAxis("Mouse X");
