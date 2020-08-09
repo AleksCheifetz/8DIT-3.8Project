@@ -18,12 +18,22 @@ public class AgentController : MonoBehaviour
     static float startingPointX;
     static float startingPointZ;
     public Vector3 destination;
+    public NavMeshPath path;
+
+    public float wanderRadius;
+    public float wanderTimer;
+    float timer;
+
+    static bool simulationStarted;
 
     void Awake()
     {
         evacuationBoundary = GameObject.Find("EvacuationBoundary");
         startingPointX = evacuationBoundary.transform.GetChild(0).gameObject.transform.position.x;
         startingPointZ = evacuationBoundary.transform.GetChild(0).gameObject.transform.position.z;
+
+        timer = wanderTimer;
+        simulationStarted = false;
     }
 
     void Start()
@@ -45,6 +55,34 @@ public class AgentController : MonoBehaviour
         agent.GetComponent<NavMeshAgent>().speed += speedOffset;
     }
 
+    void Update()
+    {
+        if (simulationStarted == false)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= wanderTimer)
+            {
+                Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
+                agent.SetDestination(newPos);
+                timer = 0;
+            }
+        }
+    }
+
+    public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
+    {
+        Vector3 randDirection = Random.insideUnitSphere * dist;
+
+        randDirection += origin;
+
+        NavMeshHit navHit;
+
+        NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
+
+        return navHit.position;
+    }
+
     public Vector3 FindDestination(int agentIndex)
     {
         float zScale = evacuationBoundary.transform.localScale.z;
@@ -63,8 +101,9 @@ public class AgentController : MonoBehaviour
         return new Vector3(startingPointX - xOffsetAgent, 1, startingPointZ - zOffsetAgent);
     }
 
-    public void Navigate(Vector3 dest)
+    public void Navigate(NavMeshPath path)
     {
-        agent.SetDestination(dest);
+        simulationStarted = true;
+        agent.SetPath(path);
     }
 }

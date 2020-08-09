@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class SimulationManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class SimulationManager : MonoBehaviour
     static float numOfAgents;
 
     List<GameObject> agents = new List<GameObject>();
+    List<NavMeshPath> agentPaths = new List<NavMeshPath>();
 
     void Start()
     {
@@ -28,10 +30,18 @@ public class SimulationManager : MonoBehaviour
     public void Simulate()
     {
         agents.RemoveAll(i => i == null);
+
         foreach (GameObject agent in agents)
         {
+            NavMeshPath path = new NavMeshPath();
             Vector3 dest = agent.GetComponent<AgentController>().destination;
-            agent.GetComponent<AgentController>().Navigate(dest);
+            NavMesh.CalculatePath(agent.transform.position, dest, NavMesh.AllAreas, path);
+            agentPaths.Add(path);
+        }
+
+        for (int i = 0; i < agents.Count; i++)
+        {
+            agents[i].GetComponent<AgentController>().Navigate(agentPaths[i]);
         }
     }
 
@@ -69,5 +79,10 @@ public class SimulationManager : MonoBehaviour
 
             agents.Add(agent);
         }
+    }
+
+    public void SeparateFloors()
+    {
+        Debug.Log("Serparate");
     }
 }
