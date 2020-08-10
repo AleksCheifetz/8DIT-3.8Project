@@ -1,20 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
 {
     public Rigidbody rb;
 
-    public float force = 30f;
+    public float defaultForce;
+    public float defaultSpeedH;
+    public float defaultSpeedV;
 
-    public float speedH = 3.0f;
-    public float speedV = 3.0f;
+    float force;
+    float speedH;
+    float speedV;
 
     private float yaw = -90.0f;
     private float pitch = 0.0f;
 
     bool paused = true;
+
+    void Start()
+    {
+        force = defaultForce;
+        speedH = defaultSpeedH;
+        speedV = defaultSpeedV;
+    }
+
+    public void TimeScaleChange(Slider timeScaleSlider)
+    {
+        force = defaultForce / timeScaleSlider.value;
+        speedH = defaultSpeedH / timeScaleSlider.value;
+        speedV = defaultSpeedV / timeScaleSlider.value;
+    }
 
     void FixedUpdate()
     {

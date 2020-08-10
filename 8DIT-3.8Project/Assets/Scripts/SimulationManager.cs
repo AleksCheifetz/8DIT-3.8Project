@@ -51,6 +51,7 @@ public class SimulationManager : MonoBehaviour
         {
             Destroy(agent);
         }
+        agentPaths.Clear();
 
         numOfAgents = slider.value;
         SpawnAgents();
