@@ -57,7 +57,7 @@ public class AgentController : MonoBehaviour
 
     void Update()
     {
-        if (simulationStarted == false)
+        if (simulationStarted == false && agent.enabled == true)
         {
             timer += Time.deltaTime;
 

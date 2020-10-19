@@ -18,6 +18,8 @@ public class SimulationManager : MonoBehaviour
     public Slider slider;
     static float numOfAgents;
 
+    public GameObject TutorialOverlay;
+
     List<GameObject> agents = new List<GameObject>();
     List<NavMeshPath> agentPaths = new List<NavMeshPath>();
 
@@ -49,6 +51,16 @@ public class SimulationManager : MonoBehaviour
 
         numOfAgents = slider.value;
         SpawnAgents();
+    }
+
+    public void HideOverlay()
+    {
+        TutorialOverlay.SetActive(false);
+    }
+
+    public void ShowOverlay()
+    {
+        TutorialOverlay.SetActive(true);
     }
 
     public void TimeScaleChange(Slider timeScaleSlider)
@@ -148,19 +160,6 @@ public class SimulationManager : MonoBehaviour
             agent.GetComponent<AgentController>().destination = dest;
 
             agents.Add(agent);
-        }
-    }
-
-    public void SeparateFloors()
-    {
-        agents.RemoveAll(i => i == null);
-        foreach (GameObject agent in agents)
-        {
-            if (agent.transform.position.y > 1)
-            {
-                Debug.Log("On First Floor");
-                agent.GetComponent<NavMeshAgent>().enabled = false;
-            }
         }
     }
 }
